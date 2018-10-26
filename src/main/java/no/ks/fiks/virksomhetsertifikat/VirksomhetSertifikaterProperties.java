@@ -9,9 +9,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Data
-@ConfigurationProperties(prefix = "ks.virksomhetsertifikat")
+@ConfigurationProperties(prefix = "virksomhetsertifikat")
 @Validated
-public class KsVirksomhetSertifikaterProperties {
+public class VirksomhetSertifikaterProperties {
 
     @NotNull @Valid
     private Set<Sertifikat> sertifikater;

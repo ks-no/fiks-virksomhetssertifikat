@@ -5,11 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties({KsVirksomhetSertifikaterProperties.class})
+@EnableConfigurationProperties({VirksomhetSertifikaterProperties.class})
 public class VirksomhetSertifikatAutoConfigure {
 
     @Bean
-    public KsVirksomhetSertifikater virksomhetSertifikater(KsVirksomhetSertifikaterProperties props){
-        return new KsVirksomhetSertifikater(props);
+    public VirksomhetSertifikater virksomhetSertifikater(VirksomhetSertifikaterProperties props){
+        return new VirksomhetSertifikater(props);
     }
 }

@@ -15,13 +15,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-public class KsVirksomhetSertifikater {
+public class VirksomhetSertifikater {
 
     private final Option<KsVirksomhetSertifikatStore> authKeyStore;
     private final Option<KsVirksomhetSertifikatStore> encKeyStore;
     private final Option<KsVirksomhetSertifikatStore> signKeyStore;
 
-    public KsVirksomhetSertifikater(@NonNull KsVirksomhetSertifikaterProperties props) {
+    public VirksomhetSertifikater(@NonNull VirksomhetSertifikaterProperties props) {
         this.authKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.AUTH);
         this.encKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.ENC);
         this.signKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.SIGN);
