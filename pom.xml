@@ -10,7 +10,7 @@
 
     <groupId>no.ks.fiks</groupId>
     <artifactId>virksomhetsertifikat</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
