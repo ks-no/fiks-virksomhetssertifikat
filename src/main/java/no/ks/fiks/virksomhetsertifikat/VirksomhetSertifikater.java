@@ -59,14 +59,22 @@ public class VirksomhetSertifikater {
     public class KsVirksomhetSertifikatStore {
         @NonNull private final KeyStore keyStore;
         @NonNull private final String privateKeyAlias;
-        @NonNull private final String privateKeyPassword;
+        @NonNull private final char[] privateKeyPassword;
         @NonNull private final String certificateAlias;
 
         public KsVirksomhetSertifikatStore(Sertifikat p) {
-            keyStore = getKeyStore(p.getKeystorePath(), p.getKeystorePassword());
+            privateKeyPassword = p.getPrivateKeyPassword().toCharArray();
+            keyStore = getKeyStore(p.getKeystorePath(),privateKeyPassword);
             privateKeyAlias = p.getPrivateKeyAlias();
-            privateKeyPassword = p.getPrivateKeyPassword();
             certificateAlias = p.getCertificateAlias();
+        }
+
+        public String getPrivateKeyAlias() {
+            return privateKeyAlias;
+        }
+
+        public char[] getPrivateKeyPassword() {
+            return privateKeyPassword;
         }
 
         public KeyStore getKeyStore() {
@@ -75,7 +83,7 @@ public class VirksomhetSertifikater {
 
         public PrivateKey getPrivateKey() {
             try {
-                return (PrivateKey) keyStore.getKey(privateKeyAlias, privateKeyPassword.toCharArray());
+                return (PrivateKey) keyStore.getKey(privateKeyAlias, privateKeyPassword);
             } catch (Exception e) {
                 throw new RuntimeException("Feil under henting av privat nøkkel fra keystore");
             }
@@ -97,7 +105,7 @@ public class VirksomhetSertifikater {
             }
         }
 
-        private KeyStore getKeyStore(String path, String password) {
+        private KeyStore getKeyStore(String path, char[] password) {
             if (path == null)
                 return null;
 
@@ -108,7 +116,7 @@ public class VirksomhetSertifikater {
 
             try (FileInputStream inputStream = new FileInputStream(file)){
                 KeyStore jks = KeyStore.getInstance("PKCS12");
-                jks.load(inputStream, password.toCharArray());
+                jks.load(inputStream, password);
                 return jks;
             } catch (Exception e) {
                 throw new RuntimeException("Kunne ikke laste p12 " + path, e);
