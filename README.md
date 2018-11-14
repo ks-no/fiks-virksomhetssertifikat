@@ -1,1 +1,1 @@
-# fiks-virksomhetsertifikat
+# fiks-virksomhetssertifikat
