@@ -20,3 +20,4 @@ edialog/node_modules
 edialog/src/main/webapp/bower_components
 edialog/.sass-cache
 svarut-itests/build
+.flattened-pom.xml
