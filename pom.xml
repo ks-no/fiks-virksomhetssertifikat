@@ -8,7 +8,7 @@
     <version>0.0.3</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
-  <artifactId>fiks-virksomhetssertifikat</artifactId>
+  <artifactId>virksomhetssertifikat</artifactId>
   <version>${revision}${changelist}</version>
   <name>${project.artifactId}</name>
   <description>Klasser for å laste virksomhetssertifikater fra konfigurasjon</description>
