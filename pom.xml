@@ -19,7 +19,7 @@
     <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
   </scm>
   <properties>
-    <lombok.version>1.16.18</lombok.version>
+    <lombok.version>1.18.8</lombok.version>
     <vavr.version>0.10.0</vavr.version>
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
     <commons-io.version>2.6</commons-io.version>
