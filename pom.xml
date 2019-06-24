@@ -5,7 +5,7 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>0.0.7</version>
+    <version>0.0.9</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>virksomhetssertifikat</artifactId>
@@ -24,7 +24,7 @@
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
     <commons-io.version>2.6</commons-io.version>
     <slf4j.version>1.7.25</slf4j.version>
-    <spring-boot.version>2.0.6.RELEASE</spring-boot.version>
+    <spring-boot.version>2.1.6.RELEASE</spring-boot.version>
     <changelist>-SNAPSHOT</changelist>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <maven.compiler.target>1.8</maven.compiler.target>
