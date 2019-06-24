@@ -5,7 +5,7 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>0.0.3</version>
+    <version>0.0.7</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>virksomhetssertifikat</artifactId>
@@ -33,6 +33,9 @@
     <revision>1.0.11</revision>
     <hibernate-validator.version>6.0.13.Final</hibernate-validator.version>
     <maven.compiler.source>1.8</maven.compiler.source>
+
+    <junit-platform.version>1.4.2</junit-platform.version>
+    <junit-jupiter.version>5.4.2</junit-jupiter.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -99,5 +102,18 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit-jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-commons</artifactId>
+      <version>${junit-platform.version}</version>
+      <scope>test</scope>
+    </dependency>
+
   </dependencies>
 </project>

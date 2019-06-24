@@ -3,9 +3,11 @@ package no.ks.fiks.virksomhetsertifikat;
 import io.vavr.collection.HashSet;
 import io.vavr.control.Option;
 import lombok.NonNull;
+import org.springframework.util.ResourceUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
@@ -17,6 +19,7 @@ import java.util.stream.Collectors;
 
 public class VirksomhetSertifikater {
 
+    public static final String NOT_FOUND_ERROR_FORMAT_TEMPLATE = "Ks-virksomhetssertifikat er konfigurert med path \"%s\", denne filen finnes ikke";
     private final Option<KsVirksomhetSertifikatStore> authKeyStore;
     private final Option<KsVirksomhetSertifikatStore> encKeyStore;
     private final Option<KsVirksomhetSertifikatStore> signKeyStore;
@@ -109,10 +112,10 @@ public class VirksomhetSertifikater {
             if (path == null)
                 return null;
 
-            File file = new File(path);
+            final File file = resolveFile(path);
 
             if (!file.exists())
-                throw new RuntimeException(String.format("Ks-virksomhetssertifikat er konfigurert med path \"%s\", denne filen finnes ikke", path));
+                throw new RuntimeException(String.format(NOT_FOUND_ERROR_FORMAT_TEMPLATE, path));
 
             try (FileInputStream inputStream = new FileInputStream(file)){
                 KeyStore jks = KeyStore.getInstance("PKCS12");
@@ -126,5 +129,17 @@ public class VirksomhetSertifikater {
 
 
 
+    }
+
+    private static File resolveFile(String path) {
+        if(ResourceUtils.isUrl(path)) {
+            try {
+                return ResourceUtils.getFile(path);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(String.format(NOT_FOUND_ERROR_FORMAT_TEMPLATE, path), e);
+            }
+        } else {
+            return new File(path);
+        }
     }
 }
