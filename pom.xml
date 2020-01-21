@@ -19,7 +19,7 @@
     <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
   </scm>
   <properties>
-    <junit-platform.version>1.4.2</junit-platform.version>
+    <junit-platform.version>1.6.0</junit-platform.version>
     <lombok.version>1.16.18</lombok.version>
     <vavr.version>0.10.0</vavr.version>
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
