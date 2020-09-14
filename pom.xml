@@ -34,7 +34,7 @@
     <revision>1.0.12</revision>
     <hibernate-validator.version>6.0.17.Final</hibernate-validator.version>
     <maven.compiler.source>1.8</maven.compiler.source>
-    <junit-jupiter.version>5.4.2</junit-jupiter.version>
+    <junit-jupiter.version>5.7.0</junit-jupiter.version>
   </properties>
   <dependencyManagement>
     <dependencies>
