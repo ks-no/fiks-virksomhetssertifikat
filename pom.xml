@@ -25,7 +25,7 @@
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <spring-boot.version>2.4.1</spring-boot.version>
     <revision>1.1.1</revision>
-    <lombok.version>1.18.16</lombok.version>
+    <lombok.version>1.18.18</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.7.0</junit-jupiter.version>
     <junit-platform.version>1.7.0</junit-platform.version>
