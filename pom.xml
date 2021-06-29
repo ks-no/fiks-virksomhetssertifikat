@@ -5,11 +5,11 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>0.0.11</version>
+    <version>1.0.0</version>
   </parent>
   <groupId>no.ks.fiks</groupId>
   <artifactId>virksomhetssertifikat</artifactId>
-  <version>${revision}${changelist}</version>
+  <version>1.2.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
   <description>Klasser for å laste virksomhetssertifikater fra konfigurasjon</description>
   <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
@@ -24,13 +24,11 @@
     <maven-source-plugin.version>3.0.1</maven-source-plugin.version>
     <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
     <spring-boot.version>2.5.2</spring-boot.version>
-    <revision>1.1.2</revision>
     <lombok.version>1.18.20</lombok.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <junit-jupiter.version>5.7.2</junit-jupiter.version>
     <junit-platform.version>1.7.2</junit-platform.version>
     <slf4j.version>1.7.31</slf4j.version>
-    <changelist>-SNAPSHOT</changelist>
     <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
     <vavr.version>0.10.3</vavr.version>
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
