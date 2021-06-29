@@ -10,7 +10,7 @@
 
   <groupId>no.ks.fiks</groupId>
   <artifactId>virksomhetssertifikat</artifactId>
-  <version>1.2.0</version>
+  <version>1.2.1-SNAPSHOT</version>
   <name>${project.artifactId}</name>
   <description>Klasser for å laste virksomhetssertifikater fra konfigurasjon</description>
   <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
