@@ -5,19 +5,22 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.4</version>
   </parent>
+
   <groupId>no.ks.fiks</groupId>
   <artifactId>virksomhetssertifikat</artifactId>
   <version>1.2.0-SNAPSHOT</version>
   <name>${project.artifactId}</name>
   <description>Klasser for å laste virksomhetssertifikater fra konfigurasjon</description>
   <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
+
   <scm>
     <connection>scm:git:git://github.com/ks-no/fiks-virksomhetssertifikat.git</connection>
     <developerConnection>scm:git:git://github.com/ks-no/fiks-virksomhetssertifikat.git</developerConnection>
     <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
   </scm>
+
   <properties>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -34,6 +37,7 @@
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
     <commons-io.version>2.10.0</commons-io.version>
   </properties>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -70,6 +74,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+  
   <dependencies>
     <dependency>
       <groupId>commons-io</groupId>
