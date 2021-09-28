@@ -35,7 +35,7 @@
     <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
     <vavr.version>0.10.3</vavr.version>
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
-    <commons-io.version>2.10.0</commons-io.version>
+    <commons-io.version>2.11.0</commons-io.version>
   </properties>
 
   <dependencyManagement>
