@@ -33,7 +33,7 @@
     <junit-platform.version>1.7.2</junit-platform.version>
     <slf4j.version>1.7.31</slf4j.version>
     <hibernate-validator.version>7.0.1.Final</hibernate-validator.version>
-    <vavr.version>0.10.3</vavr.version>
+    <vavr.version>0.10.4</vavr.version>
     <autoReleaseAfterClose>false</autoReleaseAfterClose>
     <commons-io.version>2.11.0</commons-io.version>
   </properties>
