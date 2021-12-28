@@ -24,10 +24,10 @@ public class VirksomhetSertifikater {
     private final Option<KsVirksomhetSertifikatStore> encKeyStore;
     private final Option<KsVirksomhetSertifikatStore> signKeyStore;
 
-    public VirksomhetSertifikater(@NonNull VirksomhetSertifikaterProperties props) {
-        this.authKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.AUTH);
-        this.encKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.ENC);
-        this.signKeyStore = getKeyStore(props.getSertifikater(), SertifikatType.SIGN);
+    public VirksomhetSertifikater(@NonNull Set<Sertifikat> sertifikater) {
+        this.authKeyStore = getKeyStore(sertifikater, SertifikatType.AUTH);
+        this.encKeyStore = getKeyStore(sertifikater, SertifikatType.ENC);
+        this.signKeyStore = getKeyStore(sertifikater, SertifikatType.SIGN);
     }
 
     private Option<KsVirksomhetSertifikatStore> getKeyStore(@NonNull Set<Sertifikat> sertifikater, SertifikatType sertifikatType) {

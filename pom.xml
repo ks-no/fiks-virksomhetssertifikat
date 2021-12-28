@@ -5,13 +5,18 @@
   <parent>
     <groupId>no.ks.fiks.pom</groupId>
     <artifactId>fiks-ekstern-super-pom</artifactId>
-    <version>1.0.5</version>
+    <version>1.0.6</version>
   </parent>
-
   <groupId>no.ks.fiks</groupId>
-  <artifactId>virksomhetssertifikat</artifactId>
+  <artifactId>virksomhetssertifikat-parent</artifactId>
   <version>1.2.3-SNAPSHOT</version>
   <name>${project.artifactId}</name>
+  <packaging>pom</packaging>
+  <modules>
+    <module>virksomhetssertifikat-core</module>
+    <module>virksomhetssertifikat</module>
+  </modules>
+
   <description>Klasser for å laste virksomhetssertifikater fra konfigurasjon</description>
   <url>https://github.com/ks-no/fiks-virksomhetssertifikat</url>
 
@@ -40,6 +45,11 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>no.ks.fiks</groupId>
+        <artifactId>virksomhetssertifikat-core</artifactId>
+        <version>${project.version}</version>
+      </dependency>
       <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
@@ -75,47 +85,5 @@
     </dependencies>
   </dependencyManagement>
 
-  <dependencies>
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.slf4j</groupId>
-      <artifactId>slf4j-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.vavr</groupId>
-      <artifactId>vavr</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-configuration-processor</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.hibernate.validator</groupId>
-      <artifactId>hibernate-validator</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter</artifactId>
-      <version>${junit-jupiter.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.junit.platform</groupId>
-      <artifactId>junit-platform-commons</artifactId>
-      <version>${junit-platform.version}</version>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+
 </project>

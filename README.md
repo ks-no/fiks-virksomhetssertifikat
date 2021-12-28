@@ -2,7 +2,14 @@
 [![Maven Central](https://img.shields.io/maven-central/v/no.ks.fiks/virksomhetssertifikat)](https://search.maven.org/artifact/no.ks.fiks/virksomhetssertifikat)
 ![GitHub](https://img.shields.io/github/license/ks-no/fiks-virksomhetssertifikat)
 
-Property-klasser og util for å parse virksomhetssertifikater. Om du bruker [Spring Boot ](https://spring.io/projects/spring-boot) lastes de automatisk gjennom [@ConfigurationProperties](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-typesafe-configuration-properties), og VirksomhetSertifikater.java blir tilgjengelig i application-context:
+Property-klasser og util for å parse virksomhetssertifikater. 
+
+## Moduler
+- `virksomhetssertifikat-core`: inneholder klasser og typer som brukes for å lese inn virksomhetssertifikat
+- `virksomhetssertifikat`: Spring Boot autoconfigure som kan sette opp Virksomhetssertifikat automagisk basert på konfigurasjon
+
+## Konfigurasjon for Spring Boot
+Om du bruker [Spring Boot](https://spring.io/projects/spring-boot) kan du bruke `virksomhetssertifikat` til å få lastes med [@ConfigurationProperties](https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-external-config.html#boot-features-external-config-typesafe-configuration-properties), slik at VirksomhetSertifikater blir tilgjengelig i application-context:
 
 ```yaml
 virksomhetsertifikat.sertifikater:

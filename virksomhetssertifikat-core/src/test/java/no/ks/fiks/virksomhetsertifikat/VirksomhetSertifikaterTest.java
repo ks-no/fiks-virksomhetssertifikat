@@ -5,9 +5,12 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class VirksomhetSertifikaterTest {
 
@@ -19,10 +22,8 @@ class VirksomhetSertifikaterTest {
     @DisplayName("Laster SIGN sertifikat fra classpath URL")
     @Test
     void signKey() {
-        final VirksomhetSertifikaterProperties virksomhetSertifikaterProperties = new VirksomhetSertifikaterProperties();
         final Sertifikat signSertifikat = getSertifikatFraClasspath(SertifikatType.SIGN);
-        virksomhetSertifikaterProperties.setSertifikater(Collections.singleton(signSertifikat));
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(virksomhetSertifikaterProperties);
+        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(new HashSet<>(Arrays.asList(signSertifikat)));
         assertNotNull(virksomhetSertifikater.requireSignKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
@@ -31,10 +32,8 @@ class VirksomhetSertifikaterTest {
     @DisplayName("Laster AUTH sertifikat fra classpath URL")
     @Test
     void authKey() {
-        final VirksomhetSertifikaterProperties virksomhetSertifikaterProperties = new VirksomhetSertifikaterProperties();
-        final Sertifikat signSertifikat = getSertifikatFraClasspath(SertifikatType.AUTH);
-        virksomhetSertifikaterProperties.setSertifikater(Collections.singleton(signSertifikat));
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(virksomhetSertifikaterProperties);
+        final Sertifikat authSertifikat = getSertifikatFraClasspath(SertifikatType.AUTH);
+        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(authSertifikat));
         assertNotNull(virksomhetSertifikater.requireAuthKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireSignKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
@@ -43,10 +42,8 @@ class VirksomhetSertifikaterTest {
     @DisplayName("Laster ENC sertifikat fra classpath URL")
     @Test
     void encKey() {
-        final VirksomhetSertifikaterProperties virksomhetSertifikaterProperties = new VirksomhetSertifikaterProperties();
-        final Sertifikat signSertifikat = getSertifikatFraClasspath(SertifikatType.ENC);
-        virksomhetSertifikaterProperties.setSertifikater(Collections.singleton(signSertifikat));
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(virksomhetSertifikaterProperties);
+        final Sertifikat encSertifikat = getSertifikatFraClasspath(SertifikatType.ENC);
+        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(encSertifikat));
         assertNotNull(virksomhetSertifikater.requireEncKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireSignKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
@@ -58,9 +55,7 @@ class VirksomhetSertifikaterTest {
         final URL resource = getClass().getResource("/certs/test.p12");
         assertNotNull(resource);
 
-        final VirksomhetSertifikaterProperties virksomhetSertifikaterProperties = new VirksomhetSertifikaterProperties();
-        virksomhetSertifikaterProperties.setSertifikater(Collections.singleton(createSertifikat(resource.getFile(), SertifikatType.SIGN)));
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(virksomhetSertifikaterProperties);
+        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(createSertifikat(resource.getFile(), SertifikatType.SIGN)));
         assertNotNull(virksomhetSertifikater.requireSignKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
         assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
