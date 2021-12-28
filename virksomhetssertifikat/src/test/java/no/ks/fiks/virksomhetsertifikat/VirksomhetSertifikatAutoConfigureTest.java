@@ -58,10 +58,8 @@ class VirksomhetSertifikatAutoConfigureTest {
     @DisplayName("Når man allerede har definert en VirksomhetSertifikater bean kjøres ikke autoconfigure")
     @Test
     void autoconfigureWithPreexistingBeanTest() {
-        final VirksomhetSertifikaterProperties props = new VirksomhetSertifikaterProperties();
-        props.setSertifikater(Collections.emptySet());
 
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(props);
+        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.emptySet());
         new ApplicationContextRunner()
                 .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure.class))
                 .withBean(VirksomhetSertifikater.class, () -> virksomhetSertifikater)

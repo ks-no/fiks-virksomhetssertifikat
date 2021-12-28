@@ -14,5 +14,5 @@ import java.util.Set;
 public class VirksomhetSertifikaterProperties {
 
     @NotNull @Valid
-    private Set<Sertifikat> sertifikater;
+    private Set<@Valid Sertifikat> sertifikater;
 }

@@ -15,7 +15,7 @@ public class VirksomhetSertifikatAutoConfigure {
 
         @Bean
         public VirksomhetSertifikater virksomhetSertifikater(VirksomhetSertifikaterProperties props){
-            return new VirksomhetSertifikater(props);
+            return new VirksomhetSertifikater(props.getSertifikater());
         }
     }
 
