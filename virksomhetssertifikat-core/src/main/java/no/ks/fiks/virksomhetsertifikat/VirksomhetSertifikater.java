@@ -1,7 +1,5 @@
 package no.ks.fiks.virksomhetsertifikat;
 
-import io.vavr.collection.HashSet;
-import io.vavr.control.Option;
 import lombok.NonNull;
 import org.springframework.util.ResourceUtils;
 
@@ -11,18 +9,15 @@ import java.io.FileNotFoundException;
 import java.security.KeyStore;
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class VirksomhetSertifikater {
 
     public static final String NOT_FOUND_ERROR_FORMAT_TEMPLATE = "Ks-virksomhetssertifikat er konfigurert med path \"%s\", denne filen finnes ikke";
-    private final Option<KsVirksomhetSertifikatStore> authKeyStore;
-    private final Option<KsVirksomhetSertifikatStore> encKeyStore;
-    private final Option<KsVirksomhetSertifikatStore> signKeyStore;
+    private final Optional<KsVirksomhetSertifikatStore> authKeyStore;
+    private final Optional<KsVirksomhetSertifikatStore> encKeyStore;
+    private final Optional<KsVirksomhetSertifikatStore> signKeyStore;
 
     public VirksomhetSertifikater(@NonNull Set<Sertifikat> sertifikater) {
         this.authKeyStore = getKeyStore(sertifikater, SertifikatType.AUTH);
@@ -30,21 +25,20 @@ public class VirksomhetSertifikater {
         this.signKeyStore = getKeyStore(sertifikater, SertifikatType.SIGN);
     }
 
-    private Option<KsVirksomhetSertifikatStore> getKeyStore(@NonNull Set<Sertifikat> sertifikater, SertifikatType sertifikatType) {
-        return HashSet.ofAll(sertifikater).filter(p -> p.getSertifikatType().equals(sertifikatType))
-                .singleOption().map(KsVirksomhetSertifikatStore::new);
+    private Optional<KsVirksomhetSertifikatStore> getKeyStore(@NonNull Set<Sertifikat> sertifikater, SertifikatType sertifikatType) {
+        return Set.copyOf(sertifikater).stream().filter(p -> p.getSertifikatType().equals(sertifikatType)).findAny().map(KsVirksomhetSertifikatStore::new);
     }
 
     public Optional<KsVirksomhetSertifikatStore> getAuthKeyStore() {
-        return authKeyStore.toJavaOptional();
+        return authKeyStore;
     }
 
     public Optional<KsVirksomhetSertifikatStore> getSignKeyStore() {
-        return signKeyStore.toJavaOptional();
+        return signKeyStore;
     }
 
     public Optional<KsVirksomhetSertifikatStore> getEncKeyStore() {
-        return encKeyStore.toJavaOptional();
+        return encKeyStore;
     }
 
     public KsVirksomhetSertifikatStore requireAuthKeyStore() {
