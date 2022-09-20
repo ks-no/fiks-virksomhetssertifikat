@@ -1,5 +1,5 @@
-package no.ks.fiks.virksomhetsertifikat;
+package no.ks.fiks.virksomhetsertifikat
 
-public enum SertifikatType {
+enum class SertifikatType {
     SIGN, ENC, AUTH
 }

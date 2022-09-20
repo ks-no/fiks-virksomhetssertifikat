@@ -1,91 +1,124 @@
-package no.ks.fiks.virksomhetsertifikat;
+package no.ks.fiks.virksomhetsertifikat
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.autoconfigure.AutoConfigurations;
-import org.springframework.boot.test.context.runner.ApplicationContextRunner;
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import org.springframework.boot.autoconfigure.AutoConfigurations
+import org.springframework.boot.context.properties.ConfigurationPropertiesBindException
+import org.springframework.boot.test.context.assertj.AssertableApplicationContext
+import org.springframework.boot.test.context.runner.ApplicationContextRunner
 
-import java.net.URL;
-import java.util.Collections;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
-class VirksomhetSertifikatAutoConfigureTest {
-
-    private String p12Path;
-
+internal class VirksomhetSertifikatAutoConfigureTest {
+    private val p12Path: String? = resolvePath("/certs/test.p12")
     @BeforeEach
-    void setUp() {
-        p12Path = resolvePath("/certs/test.p12");
-        assertNotNull(p12Path);
+    fun setUp() {
+        Assertions.assertNotNull(p12Path)
     }
 
     @DisplayName("Laster krypteringssertifikat basert på konfigurasjon")
     @Test
-    void encryptionSertifikatKonfigurasjonTest() {
+    fun encryptionSertifikatKonfigurasjonTest() {
         applicationContextRunnerWithSertifikatKonfigurasjon(SertifikatType.ENC)
-                .run(c -> {
-                            assertThat(c).hasSingleBean(VirksomhetSertifikater.class);
-                            assertThat(c.getBean(VirksomhetSertifikater.class)).extracting(f -> f.requireEncKeyStore()).isNotNull();
-                        }
-                );
+            .run { c: AssertableApplicationContext ->
+                assertThat(c).hasSingleBean(
+                    VirksomhetSertifikater::class.java
+                )
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.requireEncKeyStore() }
+                    .isNotNull
+
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.encKeyStore }
+                    .isNotNull
+            }
     }
 
     @DisplayName("Laster autentiseringssertifikat basert på konfigurasjon")
     @Test
-    void authSertifikatKonfigurasjonTest() {
+    fun authSertifikatKonfigurasjonTest() {
         applicationContextRunnerWithSertifikatKonfigurasjon(SertifikatType.AUTH)
-                .run(c -> {
-                            assertThat(c).hasSingleBean(VirksomhetSertifikater.class);
-                            assertThat(c.getBean(VirksomhetSertifikater.class)).extracting(f -> f.requireAuthKeyStore()).isNotNull();
-                        }
-                );
+            .run { c: AssertableApplicationContext ->
+                assertThat(c).hasSingleBean(
+                    VirksomhetSertifikater::class.java
+                )
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.requireAuthKeyStore() }
+                    .isNotNull
+
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.authKeyStore }
+                    .isNotNull
+
+            }
     }
 
     @DisplayName("Laster signeringssertifikat basert på konfigurasjon")
     @Test
-    void signSertifikatKonfigurasjonTest() {
+    fun signSertifikatKonfigurasjonTest() {
         applicationContextRunnerWithSertifikatKonfigurasjon(SertifikatType.SIGN)
-                .run(c -> {
-                            assertThat(c).hasSingleBean(VirksomhetSertifikater.class);
-                            assertThat(c.getBean(VirksomhetSertifikater.class)).extracting(f -> f.requireSignKeyStore()).isNotNull();
-                        }
-                );
+            .run { c: AssertableApplicationContext ->
+                assertThat(c).hasSingleBean(
+                    VirksomhetSertifikater::class.java
+                )
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.requireSignKeyStore() }
+                    .isNotNull
+
+                assertThat(c.getBean(VirksomhetSertifikater::class.java))
+                    .extracting { f: VirksomhetSertifikater -> f.signKeyStore }
+                    .isNotNull
+            }
     }
 
     @DisplayName("Når man allerede har definert en VirksomhetSertifikater bean kjøres ikke autoconfigure")
     @Test
-    void autoconfigureWithPreexistingBeanTest() {
-
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.emptySet());
-        new ApplicationContextRunner()
-                .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure.class))
-                .withBean(VirksomhetSertifikater.class, () -> virksomhetSertifikater)
-                .run(c -> {
-                    assertThat(c).hasSingleBean(VirksomhetSertifikater.class);
-                    assertThat(c.getBean(VirksomhetSertifikater.class)).isSameAs(virksomhetSertifikater);
-                });
+    fun autoconfigureWithPreexistingBeanTest() {
+        val virksomhetSertifikater = VirksomhetSertifikater(emptySet())
+        ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure::class.java))
+            .withBean(VirksomhetSertifikater::class.java, { virksomhetSertifikater })
+            .run { c: AssertableApplicationContext ->
+                assertThat(c).hasSingleBean(
+                    VirksomhetSertifikater::class.java
+                )
+                assertThat(c.getBean(VirksomhetSertifikater::class.java)).isSameAs(virksomhetSertifikater)
+            }
     }
 
-    private ApplicationContextRunner applicationContextRunnerWithSertifikatKonfigurasjon(final SertifikatType sertifikatType) {
-        return new ApplicationContextRunner()
-                .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure.class))
-                .withPropertyValues("virksomhetsertifikat.sertifikater[0].keystorePassword=test",
-                        "virksomhetsertifikat.sertifikater[0].certificateAlias=test",
-                        "virksomhetsertifikat.sertifikater[0].privateKeyAlias=test",
-                        "virksomhetsertifikat.sertifikater[0].privateKeyPassword=test",
-                        "virksomhetsertifikat.sertifikater[0].keystorePath=" + p12Path,
-                        "virksomhetsertifikat.sertifikater[0].sertifikatType=" + sertifikatType.name());
+    @DisplayName("Invalid configuration")
+    @Test
+    internal fun `invalid configuration`() {
+        ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure::class.java))
+            .withPropertyValues(
+                "virksomhetsertifikat.sertifikater[0].keystorePassword=test",
+                "virksomhetsertifikat.sertifikater[0].certificateAlias=test",
+                "virksomhetsertifikat.sertifikater[0].privateKeyAlias=test",
+                "virksomhetsertifikat.sertifikater[0].privateKeyPassword=test"
+            ).run { c ->
+                assertThat(c.startupFailure).hasCauseInstanceOf(ConfigurationPropertiesBindException::class.java)
+            }
     }
 
-    private static String resolvePath(final String resource) {
-        final URL resourceUrl = VirksomhetSertifikatAutoConfigureTest.class.getResource(resource);
-        if (resourceUrl != null) {
-            return resourceUrl.getFile();
-        } else {
-            return null;
+    private fun applicationContextRunnerWithSertifikatKonfigurasjon(sertifikatType: SertifikatType): ApplicationContextRunner {
+        return ApplicationContextRunner()
+            .withConfiguration(AutoConfigurations.of(VirksomhetSertifikatAutoConfigure::class.java))
+            .withPropertyValues(
+                "virksomhetsertifikat.sertifikater[0].keystorePassword=test",
+                "virksomhetsertifikat.sertifikater[0].certificateAlias=test",
+                "virksomhetsertifikat.sertifikater[0].privateKeyAlias=test",
+                "virksomhetsertifikat.sertifikater[0].privateKeyPassword=test",
+                "virksomhetsertifikat.sertifikater[0].keystorePath=$p12Path",
+                "virksomhetsertifikat.sertifikater[0].sertifikatType=" + sertifikatType.name
+            )
+    }
+
+    companion object {
+        private fun resolvePath(resource: String): String? {
+            val resourceUrl = VirksomhetSertifikatAutoConfigureTest::class.java.getResource(resource)
+            return resourceUrl?.file
         }
     }
 }

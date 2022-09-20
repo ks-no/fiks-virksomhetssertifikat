@@ -1,78 +1,69 @@
-package no.ks.fiks.virksomhetsertifikat;
+package no.ks.fiks.virksomhetsertifikat
 
-import lombok.NonNull;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.DisplayName
+import org.junit.jupiter.api.Test
+import java.util.*
 
-import java.net.URL;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-class VirksomhetSertifikaterTest {
-
-    public static final String CERTIFICATE_ALIAS = "test";
-    public static final String KEYSTORE_PASSWORD = "test";
-    public static final String PRIVATE_KEY_ALIAS = "test";
-    public static final String PRIVATE_KEY_PASSWORD = "test";
-
+internal class VirksomhetSertifikaterTest {
     @DisplayName("Laster SIGN sertifikat fra classpath URL")
     @Test
-    void signKey() {
-        final Sertifikat signSertifikat = getSertifikatFraClasspath(SertifikatType.SIGN);
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(new HashSet<>(Arrays.asList(signSertifikat)));
-        assertNotNull(virksomhetSertifikater.requireSignKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
+    fun signKey() {
+        val signSertifikat = getSertifikatFraClasspath(SertifikatType.SIGN)
+        val virksomhetSertifikater = VirksomhetSertifikater(setOf(signSertifikat))
+        Assertions.assertNotNull(virksomhetSertifikater.requireSignKeyStore())
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireAuthKeyStore() }
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireEncKeyStore() }
     }
 
     @DisplayName("Laster AUTH sertifikat fra classpath URL")
     @Test
-    void authKey() {
-        final Sertifikat authSertifikat = getSertifikatFraClasspath(SertifikatType.AUTH);
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(authSertifikat));
-        assertNotNull(virksomhetSertifikater.requireAuthKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireSignKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
+    fun authKey() {
+        val authSertifikat = getSertifikatFraClasspath(SertifikatType.AUTH)
+        val virksomhetSertifikater = VirksomhetSertifikater(setOf(authSertifikat))
+        Assertions.assertNotNull(virksomhetSertifikater.requireAuthKeyStore())
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireSignKeyStore() }
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireEncKeyStore() }
     }
 
     @DisplayName("Laster ENC sertifikat fra classpath URL")
     @Test
-    void encKey() {
-        final Sertifikat encSertifikat = getSertifikatFraClasspath(SertifikatType.ENC);
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(encSertifikat));
-        assertNotNull(virksomhetSertifikater.requireEncKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireSignKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
+    fun encKey() {
+        val encSertifikat = getSertifikatFraClasspath(SertifikatType.ENC)
+        val virksomhetSertifikater = VirksomhetSertifikater(setOf(encSertifikat))
+        Assertions.assertNotNull(virksomhetSertifikater.requireEncKeyStore())
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireSignKeyStore() }
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireAuthKeyStore() }
     }
 
     @DisplayName("Laster SIGN sertifikat fra filsti")
     @Test
-    void loadFromWorkingfolder() {
-        final URL resource = getClass().getResource("/certs/test.p12");
-        assertNotNull(resource);
-
-        final VirksomhetSertifikater virksomhetSertifikater = new VirksomhetSertifikater(Collections.singleton(createSertifikat(resource.getFile(), SertifikatType.SIGN)));
-        assertNotNull(virksomhetSertifikater.requireSignKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireAuthKeyStore());
-        assertThrows(RuntimeException.class, () -> virksomhetSertifikater.requireEncKeyStore());
+    fun loadFromWorkingfolder() {
+        val resource = javaClass.getResource("/certs/test.p12")
+        Assertions.assertNotNull(resource)
+        val virksomhetSertifikater = VirksomhetSertifikater(setOf(createSertifikat(resource.file, SertifikatType.SIGN)))
+        Assertions.assertNotNull(virksomhetSertifikater.requireSignKeyStore())
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireAuthKeyStore() }
+        Assertions.assertThrows(RuntimeException::class.java) { virksomhetSertifikater.requireEncKeyStore() }
     }
 
-    private static Sertifikat getSertifikatFraClasspath(SertifikatType sertifikatType) {
-        return createSertifikat("classpath:certs/test.p12", sertifikatType);
-    }
+    companion object {
+        const val CERTIFICATE_ALIAS = "test"
+        const val KEYSTORE_PASSWORD = "test"
+        const val PRIVATE_KEY_ALIAS = "test"
+        const val PRIVATE_KEY_PASSWORD = "test"
+        private fun getSertifikatFraClasspath(sertifikatType: SertifikatType): Sertifikat {
+            return createSertifikat("classpath:certs/test.p12", sertifikatType)
+        }
 
-    private static Sertifikat createSertifikat(@NonNull final String path, @NonNull final SertifikatType sertifikatType) {
-        final Sertifikat sertifikat = new Sertifikat();
-        sertifikat.setKeystorePath(path);
-        sertifikat.setCertificateAlias(CERTIFICATE_ALIAS);
-        sertifikat.setKeystorePassword(KEYSTORE_PASSWORD);
-        sertifikat.setPrivateKeyAlias(PRIVATE_KEY_ALIAS);
-        sertifikat.setPrivateKeyPassword(PRIVATE_KEY_PASSWORD);
-        sertifikat.setSertifikatType(sertifikatType);
-        return sertifikat;
+        private fun createSertifikat(path: String, sertifikatType: SertifikatType): Sertifikat =
+            Sertifikat(
+                keystorePath = path,
+                certificateAlias = CERTIFICATE_ALIAS,
+                keystorePassword = KEYSTORE_PASSWORD,
+                privateKeyAlias = PRIVATE_KEY_ALIAS,
+                privateKeyPassword = PRIVATE_KEY_PASSWORD,
+                sertifikatType = sertifikatType,
+            )
     }
 }
