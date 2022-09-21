@@ -18,19 +18,19 @@ data class VirksomhetSertifikaterProperties(@field:NotEmpty @field:Valid val ser
 @Validated
 @ConstructorBinding
 data class Virksomhetsertifikat(
-    @field:NotNull val sertifikatType: SertifikatType? = null,
-    @field:NotNull val keystorePassword: String? = null,
-    @field:NotBlank val keystorePath: String? = null,
-    @field:NotNull val certificateAlias: String? = null,
-    @field:NotBlank val privateKeyAlias: String? = null,
-    @field:NotNull val privateKeyPassword: String? = null
+    @field:NotNull val sertifikatType: SertifikatType,
+    @field:NotNull val keystorePassword: String,
+    @field:NotBlank val keystorePath: String,
+    @field:NotNull val certificateAlias: String,
+    @field:NotBlank val privateKeyAlias: String,
+    @field:NotNull val privateKeyPassword: String
 ) {
     fun toSertifikat() = Sertifikat(
-        sertifikatType = sertifikatType ?: throw IllegalArgumentException("""Missing value for "sertifikatType""""),
-        keystorePassword = keystorePassword ?: throw IllegalArgumentException("""Missing value for "keystorePassword""""),
-        keystorePath = keystorePath ?: throw IllegalArgumentException("""Missing value for "keystorePath""""),
-        certificateAlias = certificateAlias ?: throw IllegalArgumentException("""Missing value for "certificateAlias""""),
-        privateKeyAlias = privateKeyAlias ?: throw IllegalArgumentException("""Missing value for "privateKeyAlias""""),
-        privateKeyPassword = privateKeyPassword ?: throw IllegalArgumentException("""Missing value for "privateKeyPassword"""")
+        sertifikatType = sertifikatType,
+        keystorePassword = keystorePassword,
+        keystorePath = keystorePath,
+        certificateAlias = certificateAlias,
+        privateKeyAlias = privateKeyAlias,
+        privateKeyPassword = privateKeyPassword
     )
 }
