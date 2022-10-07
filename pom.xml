@@ -28,7 +28,7 @@
     </scm>
 
     <properties>
-        <kotlin.version>1.7.10</kotlin.version>
+        <kotlin.version>1.7.20</kotlin.version>
         <targetJdk>11</targetJdk>
         <kotlin.compiler.jvmTarget>${targetJdk}</kotlin.compiler.jvmTarget>
         <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
