@@ -51,27 +51,27 @@ class VirksomhetSertifikater(sertifikater: Set<Sertifikat>) {
         init {
             privateKeyPassword = p.privateKeyPassword!!.toCharArray()
             keyStore = getKeyStore(p.keystorePath, privateKeyPassword)!!
-            privateKeyAlias = p.privateKeyAlias!!
-            certificateAlias = p.certificateAlias!!
+            privateKeyAlias = p.privateKeyAlias
+            certificateAlias = p.certificateAlias
         }
 
         val privateKey: PrivateKey
             get() = try {
                 keyStore.getKey(privateKeyAlias, privateKeyPassword) as PrivateKey
             } catch (e: Exception) {
-                throw RuntimeException("Feil under henting av privat nøkkel fra keystore")
+                throw RuntimeException("Feil under henting av privat nøkkel fra keystore", e)
             }
         val certificate: X509Certificate
             get() = try {
                 keyStore.getCertificate(certificateAlias) as X509Certificate
             } catch (e: Exception) {
-                throw RuntimeException("Feil under henting av sertifikat nøkkel fra keystore")
+                throw RuntimeException("Feil under henting av sertifikat nøkkel fra keystore", e)
             }
         val certificateChain: List<X509Certificate>
             get() = try {
                 keyStore.getCertificateChain(certificateAlias).map { p: Certificate -> p as X509Certificate }.toList()
             } catch (e: Exception) {
-                throw RuntimeException("Feil under henting av sertifikat nøkkel fra keystore")
+                throw RuntimeException("Feil under henting av sertifikat nøkkel fra keystore", e)
             }
 
 
