@@ -1,22 +1,19 @@
 package no.ks.fiks.virksomhetsertifikat
 
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotEmpty
+import jakarta.validation.constraints.NotNull
 import org.springframework.boot.context.properties.ConfigurationProperties
-import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.validation.annotation.Validated
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotEmpty
-import javax.validation.constraints.NotNull
 
 @ConfigurationProperties(prefix = "virksomhetsertifikat")
 @Validated
-@ConstructorBinding
 data class VirksomhetSertifikaterProperties(@field:NotEmpty @field:Valid val sertifikater: Set<@Valid Virksomhetsertifikat>) {
     val virksomhetssertifikater get() = sertifikater.map(Virksomhetsertifikat::toSertifikat).toSet()
 }
 
 @Validated
-@ConstructorBinding
 data class Virksomhetsertifikat(
     @field:NotNull val sertifikatType: SertifikatType? = null,
     @field:NotNull val keystorePassword: String? = null,

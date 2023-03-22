@@ -6,11 +6,11 @@
     <parent>
         <groupId>no.ks.fiks.pom</groupId>
         <artifactId>fiks-ekstern-kotlin-superpom</artifactId>
-        <version>1.0.20</version>
+        <version>1.0.21</version>
     </parent>
     <groupId>no.ks.fiks</groupId>
     <artifactId>virksomhetssertifikat-parent</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <modules>
@@ -28,13 +28,13 @@
     </scm>
 
     <properties>
-        <targetJdk>11</targetJdk>
+        <targetJdk>17</targetJdk>
         <kotlin.compiler.jvmTarget>${targetJdk}</kotlin.compiler.jvmTarget>
         <keepStagingRepositoryOnCloseRuleFailure>true</keepStagingRepositoryOnCloseRuleFailure>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>${targetJdk}</maven.compiler.target>
+        <maven.compiler.source>${targetJdk}</maven.compiler.source>
 
-        <spring-boot.version>2.7.4</spring-boot.version>
+        <spring-boot.version>3.0.4</spring-boot.version>
 
         <commons-io.version>2.11.0</commons-io.version>
 
