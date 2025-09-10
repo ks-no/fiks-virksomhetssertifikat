@@ -10,7 +10,7 @@
     </parent>
     <groupId>no.ks.fiks</groupId>
     <artifactId>virksomhetssertifikat-parent</artifactId>
-    <version>4.0.3-SNAPSHOT</version>
+    <version>4.0.3</version>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <modules>
