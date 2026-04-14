@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: fiks-virksomhetssertifikat
+  title: Fiks virksomhetssertifikat
+  description: >
+    Spring Boot autoconfigure-bibliotek for parsing og bruk av virksomhetssertifikater.
+  annotations:
+    github.com/project-slug: ks-no/fiks-virksomhetssertifikat
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - kotlin
+    - java
+    - spring-boot
+    - sertifikat
+spec:
+  type: library
+  owner: group:team-tilgang
+  lifecycle: production
