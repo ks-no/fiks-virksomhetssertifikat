@@ -9,7 +9,7 @@ import org.springframework.validation.annotation.Validated
 
 @ConfigurationProperties(prefix = "virksomhetsertifikat")
 @Validated
-data class VirksomhetSertifikaterProperties(@field:NotEmpty @field:Valid val sertifikater: Set<@Valid Virksomhetsertifikat>) {
+data class VirksomhetSertifikaterProperties(@field:NotEmpty val sertifikater: Set<@Valid Virksomhetsertifikat>) {
     val virksomhetssertifikater get() = sertifikater.map(Virksomhetsertifikat::toSertifikat).toSet()
 }
 

@@ -66,6 +66,11 @@
             <plugin>
                 <groupId>org.jetbrains.kotlin</groupId>
                 <artifactId>kotlin-maven-plugin</artifactId>
+                <configuration>
+                    <args combine.children="append">
+                        <arg>-Xemit-jvm-type-annotations</arg>
+                    </args>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
